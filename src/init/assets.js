@@ -41,7 +41,7 @@ export const loadGameAssets = async () => {
 }
 
 //아래와 같이 작성하는 이유는 보안상의 문제로
-export const getgameAssets = () => {
+export const getGameAssets = () => {
 
     return gameAssets;
 }
