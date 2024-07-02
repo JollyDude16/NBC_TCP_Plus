@@ -36,7 +36,7 @@ export const loadGameAssets = async () => {
 
     }
     catch(error){
-        throw new Error('Failed to load game assets:'+e.message);
+        throw new Error('Failed to load game assets:'+error.message);
     }
 }
 
