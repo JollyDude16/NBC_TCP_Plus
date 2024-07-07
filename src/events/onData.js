@@ -33,10 +33,15 @@ export const onData = (socket) => async (data) => {
         case PACKET_TYPE.NORMAL:
           const { handlerId, sequence, payload, userId } = parsePacket(packet);
 
-          console.log('handlerId:', handlerId);
-          console.log('userId:', userId);
-          console.log('payload:', payload);
-          console.log('sequence:', sequence);
+          const user = getUserById(userId);
+
+          if(user && user.sequence !==sequence){
+            console.error('잘못된 호출값입니다.')
+          }
+
+          const handler = getHandlerById(handlerId);
+
+          await handler({socket, userId, payload});
       }
     } else {
       // 아직 전체 패킷이 도착하지 않음
