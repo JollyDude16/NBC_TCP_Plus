@@ -1,6 +1,8 @@
 import { config } from 'dotenv';
 import { getProtoTypeNameByHandlerId } from '../../handlers/index.js';
 import { getProtoMessages } from '../../init/loadProtos.js';
+import { ErrorCodes } from '../../error/errorCode.js';
+import CustomError from '../../error/customError.js';
 
 export const parsePacket = (data) => {
   const protoMessages = getProtoMessages();
@@ -11,7 +13,8 @@ export const parsePacket = (data) => {
   try {
     packet = Packet.decode(data);
   } catch (error) {
-    console.error(error);
+    throw new CustomError(ErrorCodes.PACKET_DECODE_ERROR, '패킷 디코딩에 실패했습니다');
+  console.log()
   }
 
   const handlerId = packet.handlerId;
@@ -20,12 +23,12 @@ export const parsePacket = (data) => {
   const sequence = packet.sequence;
 
   if (clientVersion !== config.client.version) {
-    console.error('클라이언트 버전이 일치하지 않습니다.');
+    throw new CustomError(ErrorCodes.CLIENT_VERSION_MISMATCH, '클라이언트 버전이 일치하지 않습니다.');
   }
 
 const protoTypeName = getProtoTypeNameByHandlerId(handlerId);
 if(!protoTypeName){
-    console.error(`알 수 없는 핸들러 ID:${handlerId}`);
+  throw new CustomError(ErrorCodes.PACKET_DECODE_ERROR, `알 수 없는 핸들러 ID:${handlerId}`);
 }
 
 const [namespace, typeName] = protoTypeName.split('.');
@@ -35,7 +38,7 @@ let payload;
 try{
     payload = PayloadType.decode(packet.payload);
 }catch(e){
-    console.error(e);
+    throw new CustomError(ErrorCodes)
 }
 const errorMessage = PayloadType.verify(payload);
 

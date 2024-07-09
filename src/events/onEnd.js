@@ -1,3 +1,7 @@
+import { removeUser } from "../session/user.sessions.js";
+
 export const onEnd = (socket)=>() =>{
-    console.log('Client disconnected');
+    console.log('클라이언트 연결이 종료되었습니다.');
+
+    removeUser(socket);
 }
