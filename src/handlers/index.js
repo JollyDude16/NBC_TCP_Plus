@@ -1,33 +1,32 @@
-import { HANDLER_IDS } from "../constants/handlerIds.js";
-import CustomError from "../error/customError.js";
-import { ErrorCodes } from "../error/errorCode.js";
-import initialHandler from "./users/initial.handler.js";
-
+import { HANDLER_IDS } from '../constants/handlerIds.js';
+import initialHandler from './user/initial.handler.js';
+import CustomError from '../utils/error/customError.js';
+import { ErrorCodes } from '../utils/error/errorCodes.js';
 
 const handlers = {
-    [HANDLER_IDS.INITIAL]:{
-        handler : initialHandler,
-        //왼쪽이 패키지 이름, 오른쪽이 타입 이름(패키지 + 타입)
-        protoType: 'initial.InitialPacket'
-    }
-
+  [HANDLER_IDS.INITIAL]: {
+    handler: initialHandler,
+    protoType: 'initial.InitialPacket',
+  },
 };
 
 export const getHandlerById = (handlerId) => {
   if (!handlers[handlerId]) {
     throw new CustomError(
       ErrorCodes.UNKNOWN_HANDLER_ID,
-      `핸들러를 찾을 수 없습니다. ID: ${handlerId}`,
+      `핸들러를 찾을 수 없습니다: ID ${handlerId}`,
     );
   }
   return handlers[handlerId].handler;
 };
 
 export const getProtoTypeNameByHandlerId = (handlerId) => {
-    if (!handlers[handlerId]) {
+  if (!handlers[handlerId]) {
+    // packetParser 체크하고 있지만 그냥 추가합니다.
+    throw new CustomError(
       ErrorCodes.UNKNOWN_HANDLER_ID,
-      `프로토 타입을 찾을 수 없습니다.  ${handlerId}`
-    }
-    return handlers[handlerId].protoType;
-
+      `핸들러를 찾을 수 없습니다: ID ${handlerId}`,
+    );
+  }
+  return handlers[handlerId].protoType;
 };

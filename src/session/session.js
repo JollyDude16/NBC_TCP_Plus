@@ -1,2 +1,2 @@
-export const userSessions  = [];
+export const userSessions = [];
 export const gameSessions = [];
