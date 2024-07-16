@@ -1,5 +1,5 @@
 import { HANDLER_IDS } from '../constants/handlerIds.js';
-import initialHandler from './user/initial.handler.js';
+import initialHandler from './users/initial.handler.js';
 import CustomError from '../utils/error/customError.js';
 import { ErrorCodes } from '../utils/error/errorCodes.js';
 

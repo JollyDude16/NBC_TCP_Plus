@@ -1,11 +1,11 @@
-export const packetNames ={
-    common:{
-        Packet:'common.Packet',
+export const packetNames = {
+    common: {
+      Packet: 'common.Packet',
     },
-    initial:{
-        InitialPacket:'initial.Packet',
+    initial: {
+      InitialPacket: 'initial.InitialPacket',
     },
-    response:{
-        Response: 'response.Response',
+    response: {
+      Response: 'response.Response',
     },
-};
+  };
