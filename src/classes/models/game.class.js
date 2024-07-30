@@ -6,8 +6,8 @@ class Game {
     this.users = [];
     this.state = 'waiting'; // 'waiting', 'inProgress'
   }
-  addUser() {
-    if (this.users.length > MAX_PLAYERS) {
+  addUser(user) {
+    if (this.users.length >= MAX_PLAYERS) {
       throw new Error('Game session is full');
     }
     this.users.push(user);

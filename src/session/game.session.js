@@ -1,5 +1,5 @@
 import { gameSessions } from './sessions.js';
-import Game from '../classes/model/game.class.js';
+import Game from '../classes/models/game.class.js';
 
 export const addGameSession = (id) => {
   const session = new Game(id);
@@ -18,6 +18,6 @@ export const getGameSession = (id) => {
   return gameSessions.find((game) => game.id === id);
 };
 
-export const getAllGameSession = () => {
+export const getAllGameSessions = () => {
   return gameSessions;
 };
