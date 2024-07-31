@@ -6,6 +6,7 @@ class User {
     this.y = 0;
     this.sequence = 0;
     this.lastUpdateTime = Date.now();
+    this.latency = 0;
   }
 
   updatePosition(x, y) {
@@ -15,6 +16,19 @@ class User {
   }
   getNextSequence() {
     return ++this.sequence;
+  }
+
+  ping() {
+    const now = Date.now();
+
+    console.log(`${this.id}: ping`);
+    this.socket.write(createPingPacket(now));
+  }
+
+  handlePong(data) {
+    const now = Date.now();
+    this.latency = (now - data.timestamp) / 2;
+    // console.log(`Received pong from user ${this.id} at ${now} with latency ${this.latency}ms`);
   }
 }
 export default User;
