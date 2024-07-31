@@ -1,5 +1,6 @@
-const MAX_PLAYERS = 4;
-import IntervalManager from './managers/interval.manager';
+import IntervalManager from '../managers/interval.manager.js';
+
+const MAX_PLAYERS = 2;
 
 class Game {
   constructor(id) {
@@ -8,6 +9,7 @@ class Game {
     this.intervalManager = new IntervalManager();
     this.state = 'waiting'; // 'waiting', 'inProgress'
   }
+
   addUser(user) {
     if (this.users.length >= MAX_PLAYERS) {
       throw new Error('Game session is full');
@@ -21,17 +23,20 @@ class Game {
       }, 3000);
     }
   }
+
   getUser(userId) {
     return this.users.find((user) => user.id === userId);
   }
+
   removeUser(userId) {
-    this.users = this.users.filter((user) => user.id === userId);
+    this.users = this.users.filter((user) => user.id !== userId);
     this.intervalManager.removePlayer(userId);
 
     if (this.users.length < MAX_PLAYERS) {
       this.state = 'waiting';
     }
   }
+
   startGame() {
     this.state = 'inProgress';
   }

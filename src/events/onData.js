@@ -6,6 +6,7 @@ import { getUserById, getUserBySocket } from '../session/user.session.js';
 import { handleError } from '../utils/error/errorHandler.js';
 import CustomError from '../utils/error/customError.js';
 import { ErrorCodes } from '../utils/error/errorCodes.js';
+import { getProtoMessages } from '../init/loadProtos.js';
 
 export const onData = (socket) => async (data) => {
   // 기존 버퍼에 새로 수신된 데이터를 추가
